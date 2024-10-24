@@ -2,8 +2,8 @@ import pyperclip
 import re
 import time
 
-# 正则表达式匹配 \ 和 ()
-pattern_square = r'\\\[(.*?)\\\]'
+# 正则表达式匹配 \[ \] (包括换行) 和 \( \) 之间的内容
+pattern_square = r'\\\[([\s\S]*?)\\\]'
 pattern_parenthesis = r'\\\((.*?)\\\)'
 
 # 上次的剪贴板内容
@@ -15,7 +15,7 @@ def process_clipboard():
 
     global previous_clipboard
     if clipboard_content != previous_clipboard:
-        # 匹配并替换\和()内容
+        # 匹配并替换 LaTeX 数学公式块内容
         processed_content = re.sub(pattern_square, r'$\1$', clipboard_content)
         processed_content = re.sub(pattern_parenthesis, r'$\1$', processed_content)
 
@@ -25,6 +25,7 @@ def process_clipboard():
             pyperclip.copy(processed_content)
             print(f"更新剪贴板内容")
 
+        # 将剪贴板内容更新到previous_clipboard，避免重复处理
         previous_clipboard = clipboard_content
 
 if __name__ == "__main__":
