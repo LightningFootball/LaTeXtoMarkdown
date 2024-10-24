@@ -3,8 +3,8 @@ import re
 import time
 
 # 正则表达式匹配 \[ \] (包括换行) 和 \( \) 之间的内容
-pattern_square = r'\\\[([\s\S]*?)\\\]'
-pattern_parenthesis = r'\\\((.*?)\\\)'
+pattern_square = r'\\\[\r\n\s*([\s\S]*?)\r\n\s*\\\]'
+pattern_parenthesis = r'\\\(\s(.*?)\s\\\)'
 
 # 上次的剪贴板内容
 previous_clipboard = ''
